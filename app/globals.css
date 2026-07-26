@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: var(--font-serif);
+}
+
+/*
+ * SkillScan AI - Global Styles
+ * Futuristic, immersive dark aesthetic.
+ */
+
+/* ─── Custom Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712; /* gray-950 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151; /* gray-700 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563; /* gray-600 */
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #374151 #030712;
+}
+
+/* ─── Base Body Styles ───────────────────────────────────────────── */
+body {
+  background-color: #030712; /* gray-950 */
+  color: #f9fafb; /* gray-50 */
+}
+
+/* ─── Smooth Scroll ──────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Selection Color ────────────────────────────────────────────── */
+::selection {
+  background: rgba(139, 92, 246, 0.3); /* violet-500/30 */
+  color: #fff;
+}
+
+/* ─── Custom Utility Classes ─────────────────────────────────────── */
+@layer utilities {
+  .gradient-text {
+    @apply bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+}

@@ -11,7 +11,6 @@ const navItems = [
   { icon: '🏠', label: 'Dashboard', href: '/dashboard' },
   { icon: '📄', label: 'Resume', href: '/dashboard/resume' },
   { icon: '🎯', label: 'Interview', href: '/dashboard/interview' },
-  { icon: '🗺️', label: 'Roadmap', href: '/dashboard/roadmap' },
   { icon: '📚', label: 'History', href: '/dashboard/history' },
 ];
 

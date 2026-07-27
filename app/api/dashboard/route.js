@@ -127,21 +127,6 @@ export async function GET(request) {
         interviewScoreHistory: progress?.interviewScores?.slice(-10) || [],
         resumeScoreHistory: progress?.resumeScores?.slice(-10) || [],
       },
-
-      // Roadmap summary (if generated)
-      roadmap: progress?.roadmap
-        ? {
-            overview: progress.roadmap.overview,
-            estimatedReadiness: progress.roadmap.estimatedReadiness,
-            prioritySkills: progress.roadmap.prioritySkills,
-            phaseCount: progress.roadmap.phases?.length || 0,
-            phases: progress.roadmap.phases?.map((p) => ({
-              title: p.title,
-              duration: p.duration,
-              topicCount: p.topics?.length || 0,
-            })) || [],
-          }
-        : null,
     };
 
     return NextResponse.json({

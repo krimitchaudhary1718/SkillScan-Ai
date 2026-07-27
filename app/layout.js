@@ -24,7 +24,7 @@ const playfair = Playfair_Display({
 export const metadata = {
   title: 'SkillScan AI - AI-Powered Interview Preparation',
   description:
-    'Master your technical interviews with AI-powered resume analysis, mock interviews, skill assessments, and personalized learning roadmaps. Built for developers who want to land their dream tech job.',
+    'Master your technical interviews with AI-powered resume analysis, mock interviews, and skill assessments. Built for developers who want to land their dream tech job.',
   keywords: [
     'AI interview prep',
     'technical interview',
@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     title: 'SkillScan AI - AI-Powered Interview Preparation',
     description:
-      'Master your technical interviews with AI-powered resume analysis, mock interviews, and personalized learning roadmaps.',
+      'Master your technical interviews with AI-powered resume analysis, mock interviews, and skill assessments.',
     type: 'website',
   },
 };

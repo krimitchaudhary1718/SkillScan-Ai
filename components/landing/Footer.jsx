@@ -10,7 +10,6 @@ const footerLinks = {
     { label: 'Resume Analysis', href: '/features/resume' },
     { label: 'AI Interview', href: '/features/interview' },
     { label: 'Skill Assessment', href: '/features/assessment' },
-    { label: 'Learning Roadmap', href: '/features/roadmap' },
     { label: 'Pricing', href: '/pricing' },
   ],
   Resources: [

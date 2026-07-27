@@ -28,10 +28,10 @@ const features = [
       'Comprehensive skill mapping across frameworks, languages, and soft skills. Know exactly where you stand before your next interview.',
   },
   {
-    icon: '🗺️',
-    title: 'Learning Roadmap',
+    icon: '⚡',
+    title: 'Instant Feedback',
     description:
-      'Personalized study plans generated from your skill gaps. Curated resources and milestones to level up efficiently.',
+      'Receive detailed, constructive feedback and scoring instantly after every interview question and resume scan.',
   },
   {
     icon: '📈',

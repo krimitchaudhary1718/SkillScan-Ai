@@ -73,8 +73,8 @@ export default function Hero() {
           className="mt-6 md:mt-8 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
         >
           Upload your resume, get AI-powered skill analysis, practice with
-          realistic interviews, and receive a personalized learning roadmap
-          to land your dream tech job.
+          realistic interviews, and receive instant feedback to land your dream
+          tech job.
         </motion.p>
 
         {/* CTA buttons */}

@@ -21,7 +21,7 @@ const testimonials = [
   },
   {
     quote:
-      'The resume analysis pinpointed exactly what I was missing. Within two weeks of following the personalized roadmap, I got callbacks from 3 FAANG companies. This tool is a game-changer for job seekers.',
+      'The resume analysis pinpointed exactly what I was missing. Within two weeks of following the AI improvement tips, I got callbacks from 3 FAANG companies. This tool is a game-changer for job seekers.',
     name: 'Marcus Johnson',
     role: 'Frontend Developer',
     company: 'Meta',

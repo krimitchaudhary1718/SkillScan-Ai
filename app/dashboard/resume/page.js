@@ -84,7 +84,7 @@ export default function ResumePage() {
       >
         <h1 className="text-3xl font-bold text-white">Resume Analysis</h1>
         <p className="text-gray-400">
-          Upload your resume to get AI-powered feedback and a customized learning roadmap.
+          Upload your resume to get AI-powered feedback, skill gap analysis, and tailored improvement tips.
         </p>
       </motion.div>
 

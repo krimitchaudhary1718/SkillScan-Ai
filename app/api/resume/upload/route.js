@@ -12,7 +12,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { getAuthUser } from '@/lib/auth-user';
 import connectDB from '@/lib/mongodb';
 import User from '@/lib/models/User';
 import Resume from '@/lib/models/Resume';
@@ -27,25 +27,11 @@ const ALLOWED_TYPES = [
 ];
 const TEXT_PREVIEW_LENGTH = 500; // Characters to return as preview
 
-// ── Auth helper ─────────────────────────────────────────────────────
-async function getUser(request) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-  if (!token) return null;
-  return {
-    id: token.id || token.sub,
-    email: token.email,
-    role: token.role || 'user',
-  };
-}
-
 // ── POST handler ────────────────────────────────────────────────────
 export async function POST(request) {
   try {
     // 1. Authenticate
-    const user = await getUser(request);
+    const user = await getAuthUser(request);
     if (!user) {
       return NextResponse.json(
         { error: 'Authentication required. Please sign in.' },

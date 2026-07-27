@@ -13,32 +13,17 @@
  */
 
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { getAuthUser } from '@/lib/auth-user';
 import connectDB from '@/lib/mongodb';
 import Resume from '@/lib/models/Resume';
 import InterviewSession from '@/lib/models/InterviewSession';
 import Progress from '@/lib/models/Progress';
 
-// ── Auth helper ─────────────────────────────────────────────────────
-async function getUser(request) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-  if (!token) return null;
-  return {
-    id: token.id || token.sub,
-    email: token.email,
-    name: token.name,
-    role: token.role || 'user',
-  };
-}
-
 // ── GET handler ─────────────────────────────────────────────────────
 export async function GET(request) {
   try {
     // 1. Authenticate
-    const user = await getUser(request);
+    const user = await getAuthUser(request);
     if (!user) {
       return NextResponse.json(
         { error: 'Authentication required.' },

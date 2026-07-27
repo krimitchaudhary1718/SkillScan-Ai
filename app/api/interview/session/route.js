@@ -1,16 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import { getAuthUser } from '@/lib/auth-user';
 import connectDB from '@/lib/mongodb';
 import InterviewSession from '@/lib/models/InterviewSession';
 
 export async function GET(request) {
   try {
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXTAUTH_SECRET,
-    });
+    const user = await getAuthUser(request);
     
-    if (!token) {
+    if (!user) {
       return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
     }
 
@@ -25,7 +22,7 @@ export async function GET(request) {
 
     const session = await InterviewSession.findOne({
       _id: sessionId,
-      userId: token.id || token.sub
+      userId: user.id
     });
 
     if (!session) {

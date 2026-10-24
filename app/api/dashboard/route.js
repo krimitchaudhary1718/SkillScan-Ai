@@ -67,71 +67,63 @@ export async function GET(request) {
       Progress.findOne({ userId: user.id }),
     ]);
 
-    // 3. Compile dashboard data
-    const dashboard = {
-      user: {
-        name: user.name,
-        email: user.email,
-      },
+    // 3. Build flat response — keys must match what the frontend destructures
+    const resumeScore   = latestResume?.score ?? null;
+    const averageScore  = progress?.averageScore ?? 0;
 
-      // Resume section
+    return NextResponse.json({
+      // ── Stats (used by dashboard/page.js StatsCards) ──────────────
+      resumeScore,
+      // Use average interview score as a readiness proxy (0 if no interviews yet)
+      interviewReadiness: averageScore,
+      totalInterviews:    progress?.totalInterviews ?? 0,
+      averageScore,
+
+      // ── Skills chart ───────────────────────────────────────────────
+      skills: (progress?.skills ?? []).map((s) => ({
+        name:     s.name,
+        level:    s.level,
+        category: s.category,
+      })),
+
+      // ── Recent activity (component reads .role, .category, .overallScore,
+      //    .status, .createdAt, ._id) ──────────────────────────────────
+      recentActivity: recentSessions.map((session) => ({
+        _id:          session._id.toString(),
+        role:         session.role,
+        category:     session.category,
+        difficulty:   session.difficulty,
+        overallScore: session.overallScore,
+        status:       session.status,
+        createdAt:    session.createdAt,
+      })),
+
+      // ── AI suggestions (from latest resume analysis) ──────────────
+      suggestions: latestResume?.analysis?.suggestions ?? [],
+
+      // ── Weak topics (from progress document) ─────────────────────
+      weakTopics: progress?.weakAreas ?? [],
+
+      // ── Resume section (used by dashboard/resume/page.js) ─────────
       resume: latestResume
         ? {
-            resumeId: latestResume._id.toString(),
-            score: latestResume.score,
-            fileName: latestResume.fileName,
+            resumeId:   latestResume._id.toString(),
+            score:      latestResume.score,
+            fileName:   latestResume.fileName,
             analyzedAt: latestResume.updatedAt,
-            analysis: latestResume.analysis
+            analysis:   latestResume.analysis
               ? {
-                  summary: latestResume.analysis.summary,
+                  summary:          latestResume.analysis.summary,
                   experience_level: latestResume.analysis.experience_level,
                   career_readiness: latestResume.analysis.career_readiness,
-                  strengths: latestResume.analysis.strengths,
-                  weaknesses: latestResume.analysis.weaknesses,
-                  suggestions: latestResume.analysis.suggestions,
-                  missingSkills: latestResume.analysis.missingSkills,
+                  strengths:        latestResume.analysis.strengths,
+                  weaknesses:       latestResume.analysis.weaknesses,
+                  suggestions:      latestResume.analysis.suggestions,
+                  missingSkills:    latestResume.analysis.missingSkills,
                 }
               : null,
           }
         : null,
-
-      // Skills with levels
-      skills: progress?.skills?.map((s) => ({
-        name: s.name,
-        level: s.level,
-        category: s.category,
-      })) || [],
-
-      // Recent interviews
-      recentInterviews: recentSessions.map((session) => ({
-        sessionId: session._id.toString(),
-        role: session.role,
-        category: session.category,
-        difficulty: session.difficulty,
-        score: session.overallScore,
-        status: session.status,
-        questionCount: session.questions?.length || 0,
-        answeredCount: session.answers?.length || 0,
-        date: session.createdAt,
-      })),
-
-      // Performance areas
-      weakAreas: progress?.weakAreas || [],
-      strongAreas: progress?.strongAreas || [],
-
-      // Statistics
-      stats: {
-        totalInterviews: progress?.totalInterviews || 0,
-        averageScore: progress?.averageScore || 0,
-        resumeScore: latestResume?.score || null,
-        interviewScoreHistory: progress?.interviewScores?.slice(-10) || [],
-        resumeScoreHistory: progress?.resumeScores?.slice(-10) || [],
-      },
-    };
-
-    return NextResponse.json({
-      success: true,
-      data: dashboard,
     });
   } catch (error) {
     console.error('[API /dashboard] Error:', error);

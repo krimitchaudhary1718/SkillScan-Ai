@@ -76,8 +76,12 @@ export async function POST(request) {
       );
     }
 
-    // 5. Check if already analyzed
-    if (resume.status === 'analyzed' && resume.analysis) {
+    // 5. Check if already analyzed (skip cache if it was an empty/failed fallback)
+    const isFailedAnalysis =
+      resume.score === 0 &&
+      (!resume.analysis?.skills || resume.analysis.skills.length === 0);
+
+    if (resume.status === 'analyzed' && resume.analysis && !isFailedAnalysis) {
       return NextResponse.json({
         success: true,
         cached: true,

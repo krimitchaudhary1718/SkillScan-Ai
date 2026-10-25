@@ -60,7 +60,7 @@ export default function Hero() {
         >
           <span className="text-white">Master Your</span>
           <br />
-          <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent italic">
+          <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent italic pr-2">
             Technical Interview
           </span>
           <br />
